@@ -82,7 +82,7 @@ public class AffinityAwareScheduler extends Scheduler {
 
 			for(Node freeNode:freeNodes){
 				double affinity=freeNode.getAffinityWithTask(task.getmTaskType(), AFFINITY3);
-				if(affinity>=cutPoint){//can add at least one instance
+				if(affinity>cutPoint){//can add at least one instance
 					if(mAffinities.size()==totalInstances){//already found enough mMatches
 						insertIfBetterMatch(freeNode,affinity);
 					}else{//insert match
@@ -93,7 +93,7 @@ public class AffinityAwareScheduler extends Scheduler {
 					int nodeFreeInstanceRam=freeNode.getFreeRam()/ramPerInstance;//How many instances can be allocated based on RAM, no super-allocation is permitted
 					if(min(nodeFreeInstanceCores,nodeFreeInstanceRam,freeNode.canAddInstance())>1){//can possibly add at least two instances
 						affinity=freeNode.getAffinityWithTasks(task.getmTaskType(),task.getmTaskType(), AFFINITY3);
-						if(affinity>=cutPoint){//can add another instance
+						if(affinity>cutPoint){//can add another instance
 							if(mAffinities.size()==totalInstances){//already found enough mMatches
 								insertIfBetterMatch(freeNode,affinity);
 							}else{//insert match
@@ -104,7 +104,7 @@ public class AffinityAwareScheduler extends Scheduler {
 							nodeFreeInstanceRam=freeNode.getFreeRam()/ramPerInstance;//How many instances can be allocated based on RAM, no super-allocation is permitted
 							if(min(nodeFreeInstanceCores,nodeFreeInstanceRam,freeNode.canAddInstance())>2){//can possibly add at least three instances
 								affinity=freeNode.getAffinityWithTasks(task.getmTaskType(),task.getmTaskType(),task.getmTaskType(), AFFINITY3);
-								if(affinity>=cutPoint){//can add another instance
+								if(affinity>cutPoint){//can add another instance
 									if(mAffinities.size()==totalInstances){//already found enough mMatches
 										insertIfBetterMatch(freeNode,affinity);
 									}else{//insert match
